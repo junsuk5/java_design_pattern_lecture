@@ -4,10 +4,17 @@ import java.awt.*;
 
 public class DrawCanvas extends Canvas implements Drawable {
     private int radius = 5;
+    private MacroCommand history;
 
-    public DrawCanvas(int width, int height) {
+    public DrawCanvas(int width, int height, MacroCommand history) {
         setSize(width, height);
         setBackground(Color.white);
+        this.history = history;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        history.execute();
     }
 
     @Override

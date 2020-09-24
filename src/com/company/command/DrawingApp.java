@@ -2,11 +2,13 @@ package com.company.command;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.List;
 
 public class DrawingApp extends JFrame {
     MacroCommand history = new MacroCommand();
+
+    MacroCommand line = new MacroCommand();
 
     public DrawingApp(String title) {
         super(title);
@@ -17,7 +19,7 @@ public class DrawingApp extends JFrame {
         JButton undoButton = new JButton("undo");
         JButton clearButton = new JButton("clear");
 
-        DrawCanvas canvas = new DrawCanvas(400, 400);
+        DrawCanvas canvas = new DrawCanvas(400, 400, history);
 
         buttonBox.add(undoButton);
         buttonBox.add(clearButton);
@@ -35,7 +37,7 @@ public class DrawingApp extends JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 DrawCommand command = new DrawCommand(canvas, e.getPoint());
-                history.add(command);
+                line.add(command);
                 command.execute();
             }
 
@@ -45,8 +47,42 @@ public class DrawingApp extends JFrame {
             }
         });
 
+        canvas.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println("mousePressed");
+                line = new MacroCommand();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("mouseReleased");
+                history.add(line);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
         undoButton.addActionListener(e -> {
             history.undo();
+            canvas.repaint();
+        });
+
+        clearButton.addActionListener(e -> {
+            history.clear();
             canvas.repaint();
         });
     }

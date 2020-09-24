@@ -16,6 +16,9 @@ public class MacroCommand implements Command {
 
     public void undo() {
         commands.pop();
-        execute();
+    }
+
+    public void clear() {
+        commands.clear();
     }
 }
