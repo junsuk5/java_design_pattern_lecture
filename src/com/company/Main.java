@@ -1,30 +1,17 @@
 package com.company;
 
-import com.company.observer.DigitObserver;
-import com.company.observer.GraphicObserver;
-import com.company.observer.Observer;
-import com.company.observer.RandomGenerator;
+import com.company.strategy.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        RandomGenerator randomGenerator = new RandomGenerator();
+        Player player1 = new Player("player1", new RockStrategy());
+        Player player2 = new Player("player2", new PaperStrategy());
+        Player player3 = new Player("player3", new RandomStrategy());
+        Player player4 = new Player("player4", () -> Hand.Scissors);
 
-        Observer observer1 = new DigitObserver();
-        Observer observer2 = new GraphicObserver();
-        Observer observer3 = number -> {
-            for (int i = 0; i < number; i++) {
-                System.out.print("=");
-            }
-            System.out.println();
-        };
-
-        randomGenerator.addObserver(observer1);
-        randomGenerator.addObserver(observer2);
-        randomGenerator.addObserver(observer3);
-
-        randomGenerator.execute();
-        randomGenerator.execute();
-        randomGenerator.execute();
+        for (int i = 0; i < 10; i++) {
+            System.out.println(player1.nextHand().fight(player4.nextHand()));
+        }
     }
 }
