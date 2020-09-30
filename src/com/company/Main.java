@@ -1,17 +1,22 @@
 package com.company;
 
-import com.company.strategy.*;
+import com.company.template.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Player player1 = new Player("player1", new RockStrategy());
-        Player player2 = new Player("player2", new PaperStrategy());
-        Player player3 = new Player("player3", new RandomStrategy());
-        Player player4 = new Player("player4", () -> Hand.Scissors);
+        Hero hero = new Hero("용사");
+        Hero hero2 = new Wizard("마법사");
+        Monster monster = new Slime('A');
+        Monster wolf = new Wolf('A');
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(player1.nextHand().fight(player4.nextHand()));
-        }
+        SuperHero superHero = new SuperHero("슈퍼맨");
+        superHero.attack(monster);
+        superHero.setFlying(true);
+
+        hero2.attack(wolf);
+        wolf.attack(superHero);
+
+        hero.attack(monster);
     }
 }
