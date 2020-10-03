@@ -12,6 +12,7 @@ public class SuperHero extends Hero {
     }
 
     public void setFlying(boolean flying) {
+        System.out.println(getName() + "은 날았다");
         isFlying = flying;
     }
 

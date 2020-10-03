@@ -11,7 +11,7 @@ public class Hero implements Character {
 
     @Override
     public void attack(Character character) {
-
+        System.out.println(getName() + "은 " + character.getName() + "를 공격했다");
     }
 
     public String getName() {

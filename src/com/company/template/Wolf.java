@@ -8,7 +8,7 @@ public class Wolf extends Monster {
 
     @Override
     public void attack(Character character) {
-
+        System.out.println("늑대 " + getPrefix() + "는 " + character.getName() + "를 물었다");
     }
 
     @Override
